@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DoorSignView">
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="android:typeface"/>
+        <attr name="dsv_textFont" format="string|reference"/>
+        <attr name="dsv_cornerRadius" format="dimension|reference"/>
+        <attr name="dsv_signColor" format="color|reference"/>
+        <attr name="dsv_shadowSize" format="dimension|reference"/>
+        <attr name="dsv_textPaddingLeft" format="dimension|reference"/>
+        <attr name="dsv_textPaddingTop" format="dimension|reference"/>
+        <attr name="dsv_textPaddingRight" format="dimension|reference"/>
+        <attr name="dsv_textPaddingBottom" format="dimension|reference"/>
+        <attr name="dsv_pinRadius" format="dimension|reference"/>
+        <attr name="dsv_pinOffsetX" format="float|reference"/>
+        <attr name="dsv_pinOffsetY" format="float|reference"/>
+        <attr name="dsv_pinColor" format="color|reference"/>
+        <attr name="dsv_stringsWidth" format="dimension|reference"/>
+        <attr name="dsv_stringsColor" format="color|reference"/>
+    </declare-styleable>
+
+</resources>
