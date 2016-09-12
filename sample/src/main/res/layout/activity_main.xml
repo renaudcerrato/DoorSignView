@@ -8,16 +8,27 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.mypopsy.doorsignview.MainActivity">
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context="com.mypopsy.sample.doorsignview.MainActivity">
 
     <com.mypopsy.view.DoorSignView
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="We're open!"
+        android:text="We're open! Come inside to see her!"
         android:textSize="25sp"
         android:textColor="#ffffff"
         app:dsv_textFont="fonts/BrannbollFet.ttf"
-        android:background="#f0f0f0"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        app:dsv_shadowSize="5dp"
+        android:rotation="-5" />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:max="360"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>
