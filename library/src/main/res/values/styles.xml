@@ -15,7 +15,7 @@
         <item name="dsv_stringsWidth">4dp</item>
         <item name="dsv_pinOffsetX">0.5</item>
         <item name="dsv_pinOffsetY">0.3</item>
-        <item name="dsv_pinColor">#ffffff</item>
+        <item name="dsv_pinColor">#f0f0f0</item>
         <item name="dsv_stringsColor">#cccccc</item>
     </style>
 </resources>

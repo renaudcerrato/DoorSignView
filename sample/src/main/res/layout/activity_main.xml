@@ -16,11 +16,12 @@
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="We're open! Come inside to see her!"
+        android:text="Yes, we're open!\nCome inside!"
         android:textSize="25sp"
         android:textColor="#ffffff"
         app:dsv_textFont="fonts/BrannbollFet.ttf"
         android:layout_centerInParent="true"
+        app:dsv_textSpacingMult="1.2"
         app:dsv_shadowSize="5dp"
         android:rotation="-5" />
 
