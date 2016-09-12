@@ -10,8 +10,12 @@
         <item name="dsv_textPaddingBottom">20sp</item>
         <item name="dsv_textPaddingLeft">20sp</item>
         <item name="dsv_textPaddingRight">20sp</item>
-        <item name="dsv_pinRadius">20dp</item>
+        <item name="dsv_pinRadius">16dp</item>
         <item name="dsv_cornerRadius">6dp</item>
-        <item name="dsv_stringsWidth">6dp</item>
+        <item name="dsv_stringsWidth">4dp</item>
+        <item name="dsv_pinOffsetX">0.5</item>
+        <item name="dsv_pinOffsetY">0.3</item>
+        <item name="dsv_pinColor">#ffffff</item>
+        <item name="dsv_stringsColor">#cccccc</item>
     </style>
 </resources>
