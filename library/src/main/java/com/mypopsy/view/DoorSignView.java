@@ -342,8 +342,8 @@ public class DoorSignView extends View {
             options.textPaddingBottom = a.getDimensionPixelSize(R.styleable.DoorSignView_dsv_textPaddingBottom, 0);
             options.pinOffsetX = a.getFloat(R.styleable.DoorSignView_dsv_pinOffsetX, 0.5f);
             options.pinOffsetY = a.getFloat(R.styleable.DoorSignView_dsv_pinOffsetY, 0.25f);
-            options.textSpacingAdd = a.getFloat(R.styleable.DoorSignView_dsv_textSpacingAdd, 0);
-            options.textSpacingMult = a.getFloat(R.styleable.DoorSignView_dsv_textSpacingAdd, 1f);
+            options.textSpacingAdd = a.getDimension(R.styleable.DoorSignView_dsv_textSpacingAdd, 0);
+            options.textSpacingMult = a.getFloat(R.styleable.DoorSignView_dsv_textSpacingMult, 1f);
 
             final String textFont = a.getString(R.styleable.DoorSignView_dsv_textFont);
             if(textFont != null)

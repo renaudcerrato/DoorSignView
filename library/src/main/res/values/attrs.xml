@@ -21,7 +21,7 @@
         <attr name="dsv_stringsWidth" format="dimension|reference"/>
         <attr name="dsv_stringsColor" format="color|reference"/>
         <attr name="dsv_textSpacingMult" format="float|reference"/>
-        <attr name="dsv_textSpacingAdd" format="float|reference"/>
+        <attr name="dsv_textSpacingAdd" format="dimension|reference"/>
     </declare-styleable>
 
 </resources>
