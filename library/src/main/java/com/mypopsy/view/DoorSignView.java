@@ -16,6 +16,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import com.mypopsy.doorsignview.R;
@@ -45,10 +46,14 @@ public class DoorSignView extends View {
     private int mTextPaddingRight;
     private int mTextPaddingBottom;
     private float mPinOffsetX, mPinOffsetY;
+    private float mTextSpacingMult;
+    private float mTextSpacingAdd;
+    private float mShadowAngle = 90;
 
     private RectF mBodyBounds = new RectF();
     private Path mBodyPath;
-    private int mShadowOffsetX, mShadowOffsetY;
+    private float mShadowOffsetX, mShadowOffsetY;
+
 
 
     public DoorSignView(Context context, AttributeSet attrs) {
@@ -84,7 +89,7 @@ public class DoorSignView extends View {
         setPinColor(args.pinColor);
 
         mPinShadowPaint = new Paint();
-        mPinShadowPaint.setColor(darkerOf(args.pinColor, SHADOW_DARK_RATIO));
+        mPinShadowPaint.setColor(transparent(darkerOf(args.pinColor, SHADOW_DARK_RATIO), 0.8f));
 
         mStringsPaint = new Paint();
         setStringsColor(args.stringsColor);
@@ -96,12 +101,14 @@ public class DoorSignView extends View {
         setShadowSize(args.shadowSize);
         setTextPadding(args.textPaddingLeft, args.textPaddingTop, args.textPaddingRight, args.textPaddingBottom);
         setPinOffset(args.pinOffsetX, args.pinOffsetY);
-        setLightAngle(-90);
+        setTextSpacing(args.textSpacingMult, args.textSpacingAdd);
+        setShadowAngle(mShadowAngle);
     }
 
     private void setPinOffset(float pinOffsetX, float pinOffsetY) {
         mPinOffsetX = pinOffsetX;
         mPinOffsetY = pinOffsetY;
+        updatePivot();
         requestLayout();
     }
 
@@ -115,17 +122,21 @@ public class DoorSignView extends View {
     
     public void setShadowSize(int size) {
         this.mShadowSize = size;
+        updateShadow();
+        updatePivot();
         requestLayout();
     }
 
     public void setPinRadius(int radius) {
         this.mPinRadius = radius;
+        updatePivot();
         requestLayout();
     }
 
     public void setCornerRadius(int radius) {
         this.mCornerRadius = radius;
-        requestLayout();
+        mBodyPath = null;
+        invalidate();
     }
 
     public void setText(CharSequence charSequence) {
@@ -135,22 +146,22 @@ public class DoorSignView extends View {
 
     public void setStringsWidth(int width) {
         mStringsPaint.setStrokeWidth(width);
-        requestLayout();
+        invalidate();
     }
 
     public void setStringsColor(int color) {
         mStringsPaint.setColor(color);
-        requestLayout();
+        invalidate();
     }
 
     public void setPinColor(int color) {
         mPinPaint.setColor(color);
-        requestLayout();
+        invalidate();
     }
 
     public void setSignColor(int color) {
         mSignPaint.setColor(color);
-        requestLayout();
+        invalidate();
     }
 
     public void setTypeface(Typeface typeFace) {
@@ -165,13 +176,25 @@ public class DoorSignView extends View {
 
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
+        invalidate();
+    }
+
+    public void setShadowAngle(float degree) {
+        mShadowAngle = degree;
+        updateShadow();
+    }
+
+    public void setTextSpacing(float mult, float add) {
+        this.mTextSpacingMult = mult;
+        this.mTextSpacingAdd = add;
         requestLayout();
     }
 
-    public void setLightAngle(float degree) {
-        mShadowOffsetX = (int) Math.round(mShadowSize*Math.cos(Math.toDegrees(degree)));
-        mShadowOffsetY = (int) Math.round(mShadowSize*Math.sin(Math.toDegrees(degree)));
-        invalidate();
+    @Override
+    public void setRotation(float rotation) {
+        super.setRotation(rotation);
+        Log.d(getClass().getSimpleName(), "setRotation() called with: " + "rotation = [" + rotation + "]");
+        updateShadow();
     }
 
     @SuppressLint("DrawAllocation")
@@ -185,7 +208,7 @@ public class DoorSignView extends View {
 
         mTextLayout = new StaticLayout(mText, mTextPaint,
                 width - mTextPaddingLeft - mTextPaddingRight - 2 * mShadowSize,
-                Layout.Alignment.ALIGN_CENTER, 1.0f, 0f, true);
+                Layout.Alignment.ALIGN_CENTER, mTextSpacingMult, mTextSpacingAdd, true);
 
         mBodyBounds.right = getWidth() - 2 * mShadowSize;
         mBodyBounds.bottom = mTextLayout.getHeight() + mTextPaddingTop + mTextPaddingBottom;
@@ -197,6 +220,7 @@ public class DoorSignView extends View {
             height = Math.min(height, heightSize);
         }
 
+        mBodyPath = null;
         setMeasuredDimension(width, height);
     }
 
@@ -204,6 +228,7 @@ public class DoorSignView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mBodyPath = null;
+        updatePivot();
     }
 
     @Override
@@ -229,7 +254,7 @@ public class DoorSignView extends View {
         canvas.drawLine(mBodyBounds.width() - mCornerRadius, mCornerRadius, pinX, pinY - 2*mStringsPaint.getStrokeWidth(), mStringsPaint);
 
         // Draw shadow
-        if(mShadowSize != 0) {
+        if(mShadowOffsetX != 0 || mShadowOffsetY != 0) {
             canvas.translate(mShadowOffsetX, mShadowOffsetY);
             canvas.drawPath(mBodyPath, mSignShadowPaint);
             canvas.translate(-mShadowOffsetX, -mShadowOffsetY);
@@ -247,6 +272,25 @@ public class DoorSignView extends View {
         mTextLayout.draw(canvas);
 
         canvas.restore();
+    }
+
+    private void updatePivot() {
+        setPivotX(mShadowSize + mPinOffsetX*mBodyBounds.width());
+        setPivotY(mShadowSize + mPinRadius);
+    }
+
+    private void updateShadow() {
+        final float offsetX = (float) (mShadowSize*Math.cos(Math.toRadians(mShadowAngle-getRotation())));
+        final float offsetY = (float) (mShadowSize*Math.sin(Math.toRadians(mShadowAngle-getRotation())));
+        if(offsetX != mShadowOffsetX || offsetY != mShadowOffsetY) {
+            mShadowOffsetX = offsetX;
+            mShadowOffsetY = offsetY;
+            invalidate();
+        }
+    }
+
+    static private int transparent(int color, float alpha) {
+        return Color.argb(Math.round(alpha*255), Color.red(color), Color.green(color), Color.blue(color));
     }
 
     static private int darkerOf(int color, float ratio) {
@@ -275,6 +319,8 @@ public class DoorSignView extends View {
         int textPaddingBottom;
         float pinOffsetX = 0.5f;
         float pinOffsetY = 0.2f;
+        float textSpacingMult;
+        float textSpacingAdd;
 
         static Options from(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
             final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DoorSignView, defStyleAttr, defStyleRes);
@@ -296,6 +342,8 @@ public class DoorSignView extends View {
             options.textPaddingBottom = a.getDimensionPixelSize(R.styleable.DoorSignView_dsv_textPaddingBottom, 0);
             options.pinOffsetX = a.getFloat(R.styleable.DoorSignView_dsv_pinOffsetX, 0.5f);
             options.pinOffsetY = a.getFloat(R.styleable.DoorSignView_dsv_pinOffsetY, 0.25f);
+            options.textSpacingAdd = a.getFloat(R.styleable.DoorSignView_dsv_textSpacingAdd, 0);
+            options.textSpacingMult = a.getFloat(R.styleable.DoorSignView_dsv_textSpacingAdd, 1f);
 
             final String textFont = a.getString(R.styleable.DoorSignView_dsv_textFont);
             if(textFont != null)
