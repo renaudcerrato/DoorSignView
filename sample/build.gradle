@@ -22,5 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(path: ':library')
+    compile 'com.facebook.rebound:rebound:0.3.8'
     compile 'com.android.support:appcompat-v7:24.2.0'
 }

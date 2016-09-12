@@ -12,7 +12,7 @@
     android:clipToPadding="false"
     tools:context="com.mypopsy.sample.doorsignview.MainActivity">
 
-    <com.mypopsy.view.DoorSignView
+    <com.mypopsy.sample.doorsignview.AnimatedDoorSignView
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -22,14 +22,6 @@
         app:dsv_textFont="fonts/BrannbollFet.ttf"
         android:layout_centerInParent="true"
         app:dsv_textSpacingMult="1.2"
-        app:dsv_shadowSize="5dp"
-        android:rotation="-5" />
-
-    <SeekBar
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:max="360"
-        android:layout_alignParentBottom="true"/>
+        app:dsv_shadowSize="5dp"/>
 
 </RelativeLayout>
