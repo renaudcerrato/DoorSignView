@@ -25,3 +25,16 @@ dependencies {
     compile deps.support.appcompat
     compile deps.support.design
 }
+
+afterEvaluate { project ->
+    android.applicationVariants.each { variant ->
+
+        Task copyApk = task(("release" + variant.variantData.name.capitalize()), type:Copy) {
+            from variant.outputs[0].outputFile
+            destinationDir project.projectDir
+            dependsOn variant.assemble
+        }
+
+        variant.assemble.finalizedBy(copyApk)
+    }
+}
