@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="AnimatedDoorSignView">
+        <attr name="adsv_friction" format="float|reference"/>
+        <attr name="adsv_tension" format="float|reference"/>
+    </declare-styleable>
+
     <declare-styleable name="DoorSignView">
         <attr name="android:text"/>
         <attr name="android:textSize"/>

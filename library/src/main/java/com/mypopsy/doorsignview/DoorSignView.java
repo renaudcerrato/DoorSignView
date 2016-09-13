@@ -1,4 +1,4 @@
-package com.mypopsy.view;
+package com.mypopsy.doorsignview;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.graphics.ColorUtils;
+import android.support.v4.view.ViewCompat;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -26,7 +27,8 @@ import com.mypopsy.doorsignview.R;
  */
 public class DoorSignView extends View {
 
-    public static final float SHADOW_DARK_RATIO = 0.7f;
+    private static final float SHADOW_DARK_RATIO = 0.7f;
+    private static final float SHADOW_ALPHA = 0.8f;
 
     private TextPaint mTextPaint;
     private Paint mSignPaint;
@@ -89,7 +91,7 @@ public class DoorSignView extends View {
         setPinColor(args.pinColor);
 
         mPinShadowPaint = new Paint();
-        mPinShadowPaint.setColor(transparent(darkerOf(args.pinColor, SHADOW_DARK_RATIO), 0.8f));
+        mPinShadowPaint.setColor(transparent(darkerOf(args.pinColor, SHADOW_DARK_RATIO), SHADOW_ALPHA));
 
         mStringsPaint = new Paint();
         setStringsColor(args.stringsColor);
@@ -193,7 +195,6 @@ public class DoorSignView extends View {
     @Override
     public void setRotation(float rotation) {
         super.setRotation(rotation);
-        Log.d(getClass().getSimpleName(), "setRotation() called with: " + "rotation = [" + rotation + "]");
         updateShadow();
     }
 
@@ -275,13 +276,13 @@ public class DoorSignView extends View {
     }
 
     private void updatePivot() {
-        setPivotX(mShadowSize + mPinOffsetX*mBodyBounds.width());
-        setPivotY(mShadowSize + mPinRadius);
+        ViewCompat.setPivotX(this, mShadowSize + mPinOffsetX*mBodyBounds.width());
+        ViewCompat.setPivotY(this, mShadowSize + mPinRadius);
     }
 
     private void updateShadow() {
-        final float offsetX = (float) (mShadowSize*Math.cos(Math.toRadians(mShadowAngle-getRotation())));
-        final float offsetY = (float) (mShadowSize*Math.sin(Math.toRadians(mShadowAngle-getRotation())));
+        final float offsetX = (float) (mShadowSize * Math.cos(Math.toRadians(mShadowAngle - ViewCompat.getRotation(this))));
+        final float offsetY = (float) (mShadowSize * Math.sin(Math.toRadians(mShadowAngle - ViewCompat.getRotation(this))));
         if(offsetX != mShadowOffsetX || offsetY != mShadowOffsetY) {
             mShadowOffsetX = offsetX;
             mShadowOffsetY = offsetY;
