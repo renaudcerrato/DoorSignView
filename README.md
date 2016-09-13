@@ -1,6 +1,6 @@
 # DoorSignView
 
-Create static door signs using [`DoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/DoorSignView.java) or, if you're into fancy things, give a try to [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) to enable a cool animation based on the device orientation sensor(s).
+Create static door signs using [`DoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/DoorSignView.java) or, if you're into fancy things, give a try to [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) for adding a cool animation based on the device orientation sensor(s).
  **Already in production at [Popsy](https://play.google.com/store/apps/details?id=com.mypopsy.android).**
 
 [DEMO APK](https://github.com/renaudcerrato/DoorSignView/raw/master/sample/sample-debug.apk)
