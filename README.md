@@ -13,7 +13,7 @@ Create static door signs using [`DoorSignView`](/library/src/main/java/com/mypop
 </table>
 
 # Usage 
-Add an [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) (or a [`DoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/DoorSignView.java)) to your view hierarchy, be sure that `android:width` is set to `fill_parent` or any fixed value:
+Add an [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) (or a [`DoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/DoorSignView.java)) to your view hierarchy, be sure that `android:width` is set to `match_parent` or any fixed value:
 
 ```xml
 ...
