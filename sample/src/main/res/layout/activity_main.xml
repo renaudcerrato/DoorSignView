@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,16 +12,62 @@
     android:clipToPadding="false"
     tools:context="com.mypopsy.sample.doorsignview.MainActivity">
 
-    <com.mypopsy.sample.doorsignview.AnimatedDoorSignView
-        android:id="@+id/image"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="Yes, we're open!\nCome inside!"
-        android:textSize="25sp"
-        android:textColor="#ffffff"
-        app:dsv_textFont="fonts/BrannbollFet.ttf"
-        android:layout_centerInParent="true"
-        app:dsv_textSpacingMult="1.2"
-        app:dsv_shadowSize="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
-</RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            >
+            <com.mypopsy.doorsignview.AnimatedDoorSignView
+                android:id="@+id/doorsign1"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Yes, we're open!\nCome inside!"
+                android:textSize="28sp"
+                android:textColor="#ffffff"
+                app:dsv_textFont="fonts/BrannbollFet.ttf"
+                app:dsv_textSpacingMult="1.2"
+                app:dsv_shadowSize="5dp"
+                app:adsv_tension="100"/>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+            <com.mypopsy.doorsignview.AnimatedDoorSignView
+                android:id="@+id/doorsign2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Sorry!\nWe're closed!"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                app:dsv_signColor="#00adef"
+                app:dsv_textFont="fonts/BrannbollFet.ttf"
+                app:dsv_stringsWidth="3dp"
+                app:dsv_pinRadius="10dp"
+                app:dsv_textSpacingMult="1.2"
+                app:dsv_shadowSize="3dp"
+                app:adsv_tension="120"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_action_github"
+        android:onClick="onFabClick" />
+
+</FrameLayout>
