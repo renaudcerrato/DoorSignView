@@ -36,7 +36,7 @@ Add an [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/
 ...
 ```
 
-[`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) use [Rebound](http://facebook.github.io/rebound/) under the hood, you can easily configure friction and tension through xml:
+[`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) use [`rebound`](http://facebook.github.io/rebound/) under the hood, you can easily configure friction and tension through xml:
 
 ```xml
 ...
@@ -49,7 +49,7 @@ Add an [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/
 ...
 ```
 
-See the [all the supported attributes](/library/src/main/res/values/attrs.xml), and don't forget to look at the [sample](/sample).
+See [all the supported attributes](/library/src/main/res/values/attrs.xml), and don't forget to look at the [sample](/sample).
 
 
 
