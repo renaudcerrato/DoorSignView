@@ -211,7 +211,7 @@ public class DoorSignView extends View {
                 width - mTextPaddingLeft - mTextPaddingRight - 2 * mShadowSize,
                 Layout.Alignment.ALIGN_CENTER, mTextSpacingMult, mTextSpacingAdd, true);
 
-        mBodyBounds.right = getWidth() - 2 * mShadowSize;
+        mBodyBounds.right = width - 2 * mShadowSize;
         mBodyBounds.bottom = mTextLayout.getHeight() + mTextPaddingTop + mTextPaddingBottom;
 
         if(heightMode == MeasureSpec.EXACTLY)
