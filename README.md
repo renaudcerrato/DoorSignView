@@ -73,7 +73,7 @@ allprojects {
 Add the dependency:
 ```javascript
 dependencies {
-  compile 'com.github.renaudcerrato:DoorSignView:1.0.0'
+  compile 'com.github.renaudcerrato:DoorSignView:1.0.1'
 }
 ```
 
