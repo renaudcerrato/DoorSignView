@@ -20,7 +20,7 @@ ext {
     targetSdkVersion = 22
 
 
-    ANDROID_SUPPORT_LIBRARY = "24.2.0"
+    ANDROID_SUPPORT_LIBRARY = "24.2.1"
 }
 
 ext.deps = [
