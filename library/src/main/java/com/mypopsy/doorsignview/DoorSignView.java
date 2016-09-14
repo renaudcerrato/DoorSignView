@@ -236,6 +236,10 @@ public class DoorSignView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        if(mTextLayout == null) {
+            return;
+        }
+
         if (mBodyPath == null) {
             mBodyPath = new Path();
             mBodyPath.setFillType(Path.FillType.EVEN_ODD);
