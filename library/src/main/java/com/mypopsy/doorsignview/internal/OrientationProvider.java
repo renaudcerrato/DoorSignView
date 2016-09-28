@@ -111,9 +111,12 @@ public class OrientationProvider {
 
     final private SensorEventListener mSensorListener  = new SensorEventListener() {
 
-        @SuppressWarnings("SuspiciousNameCombination")
         @Override
         public void onSensorChanged(SensorEvent event) {
+
+            if(!isStarted) {
+                return;
+            }
 
             int rotation = mDisplay.getRotation();
             int axisX, axisY;
