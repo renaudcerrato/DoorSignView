@@ -147,7 +147,9 @@ public class AnimatedDoorSignView extends DoorSignView implements InteractiveVie
         }
 
         public void register(boolean register) {
-            if(register == (spring != null)) {
+            final boolean running = spring != null;
+
+            if(register == running) {
                 return;
             }
 
