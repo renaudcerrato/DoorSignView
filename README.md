@@ -1,4 +1,4 @@
-# DoorSignView [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DoorSignView-green.svg?style=true)](https://android-arsenal.com/details/1/4342)
+# DoorSignView [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DoorSignView-green.svg?style=true)](https://android-arsenal.com/details/1/4342) [![](https://img.shields.io/badge/Android%20Weekly-%23223-yellow.svg)](http://androidweekly.net/issues/issue-223)
 
 Create static door signs using [`DoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/DoorSignView.java) or, if you're into fancy things, give a try to [`AnimatedDoorSignView`](/library/src/main/java/com/mypopsy/doorsignview/AnimatedDoorSignView.java) for adding a cool animation based on the device orientation sensor(s).
  **Already in production at [Popsy](https://play.google.com/store/apps/details?id=com.mypopsy.android).**
