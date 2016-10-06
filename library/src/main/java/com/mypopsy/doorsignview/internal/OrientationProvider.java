@@ -123,7 +123,7 @@ public class OrientationProvider {
 
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_ROTATION_VECTOR:
-                    SensorManager.getRotationMatrixFromVector(R, event.values);
+                    getRotationMatrixFromVector(R, event.values);
                     break;
                 default:
                     return;
@@ -163,4 +163,67 @@ public class OrientationProvider {
             // nothing to do?
         }
     };
+
+    /**
+     * SensorManager.getRotationMatrixFromVector() is broken on some Samsung devices.
+     * https://groups.google.com/forum/#!topic/android-developers/U3N9eL5BcJk
+     *  @param rotationVector the rotation vector to convert
+     *  @param R an array of floats in which to store the rotation matrix
+     */
+    private static void getRotationMatrixFromVector(float[] R, float[] rotationVector) {
+
+        float q0;
+        float q1 = rotationVector[0];
+        float q2 = rotationVector[1];
+        float q3 = rotationVector[2];
+
+        if (rotationVector.length >= 4) {
+            q0 = rotationVector[3];
+        } else {
+            q0 = 1 - q1*q1 - q2*q2 - q3*q3;
+            q0 = (q0 > 0) ? (float)Math.sqrt(q0) : 0;
+        }
+
+        float sq_q1 = 2 * q1 * q1;
+        float sq_q2 = 2 * q2 * q2;
+        float sq_q3 = 2 * q3 * q3;
+        float q1_q2 = 2 * q1 * q2;
+        float q3_q0 = 2 * q3 * q0;
+        float q1_q3 = 2 * q1 * q3;
+        float q2_q0 = 2 * q2 * q0;
+        float q2_q3 = 2 * q2 * q3;
+        float q1_q0 = 2 * q1 * q0;
+
+        if(R.length == 9) {
+            R[0] = 1 - sq_q2 - sq_q3;
+            R[1] = q1_q2 - q3_q0;
+            R[2] = q1_q3 + q2_q0;
+
+            R[3] = q1_q2 + q3_q0;
+            R[4] = 1 - sq_q1 - sq_q3;
+            R[5] = q2_q3 - q1_q0;
+
+            R[6] = q1_q3 - q2_q0;
+            R[7] = q2_q3 + q1_q0;
+            R[8] = 1 - sq_q1 - sq_q2;
+        } else if (R.length == 16) {
+            R[0] = 1 - sq_q2 - sq_q3;
+            R[1] = q1_q2 - q3_q0;
+            R[2] = q1_q3 + q2_q0;
+            R[3] = 0.0f;
+
+            R[4] = q1_q2 + q3_q0;
+            R[5] = 1 - sq_q1 - sq_q3;
+            R[6] = q2_q3 - q1_q0;
+            R[7] = 0.0f;
+
+            R[8] = q1_q3 - q2_q0;
+            R[9] = q2_q3 + q1_q0;
+            R[10] = 1 - sq_q1 - sq_q2;
+            R[11] = 0.0f;
+
+            R[12] = R[13] = R[14] = 0.0f;
+            R[15] = 1.0f;
+        }
+    }
 }
